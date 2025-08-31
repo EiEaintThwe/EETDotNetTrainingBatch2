@@ -11,6 +11,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EETDotNetTraningBatch2.POSC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EETDotNetTraningBatch2.POSDatabase", "EETDotNetTraningBatch2.POSDatabase\EETDotNetTraningBatch2.POSDatabase.csproj", "{B79B5B44-D7AB-421F-B8EC-B5CAC416B1A5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projects", "Projects", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project1", "Project1", "{090F629C-53C9-46CC-8770-177B20D974BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +45,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9B9FCF69-9D05-40E9-94FD-CBB33F8545AB} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{62E0574C-5EE6-4FC1-B4BE-F9E931F82029} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{07E9FC61-7753-42FB-ACB0-F4AF5FA44489} = {090F629C-53C9-46CC-8770-177B20D974BE}
+		{B79B5B44-D7AB-421F-B8EC-B5CAC416B1A5} = {090F629C-53C9-46CC-8770-177B20D974BE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8DA6ACE1-F826-4215-80F3-505023D7666C}

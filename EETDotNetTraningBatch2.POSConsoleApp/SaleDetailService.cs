@@ -104,5 +104,63 @@ namespace EETDotNetTraningBatch2.POSConsoleApp
 
 
         }
+
+        public void Execute()
+        {
+        Result:
+            Console.WriteLine("Sale Detail Menu");
+            Console.WriteLine("----------------------------------");
+            Console.WriteLine("1. New Sale Detail");
+            Console.WriteLine("2. Sale Detail List");
+            Console.WriteLine("3. Exit");
+            Console.WriteLine("----------------------------------");
+
+            Console.Write("Choose Menu: ");
+            string result = Console.ReadLine()!;
+            bool isInt = int.TryParse(result, out int no);
+            if (!isInt)
+            {
+                Console.WriteLine("Invalid Sale Detail Menu. Please choose 1 to 3");
+                goto Result;
+            }
+            Console.WriteLine("----------------------------------");
+
+            EnumSaleDetailMenu menu = (EnumSaleDetailMenu)no;
+            switch (menu)
+            {
+                
+                
+                case EnumSaleDetailMenu.NewSaleDetail:
+                    Console.WriteLine("This menu is new Sale Detail.");
+                    Console.WriteLine("----------------------------------");
+                    Create();
+                    Console.WriteLine("----------------------------------");
+                    break;
+                case EnumSaleDetailMenu.SaleDetailList:
+                    Console.WriteLine("This menu is Sale Detail List.");
+                    Console.WriteLine("----------------------------------");
+                    Read();
+                    Console.WriteLine("----------------------------------");
+                    break;
+                case EnumSaleDetailMenu.Exit:
+                    goto End;
+            case EnumSaleDetailMenu.None:
+            default:
+                    Console.WriteLine("Invalid Sale Detail Menu. Please choose 1 to 3");
+                    goto Result;
+                    break;
+            }
+            Console.WriteLine("----------------------------------");
+        End:
+            Console.WriteLine("Exiting SaleDetail Menu.....");
+        }
+    }
+
+    public enum EnumSaleDetailMenu
+    {
+        None,
+        NewSaleDetail,
+        SaleDetailList,
+        Exit
     }
 }
