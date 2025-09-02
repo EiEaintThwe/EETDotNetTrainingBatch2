@@ -1,5 +1,6 @@
 ﻿
 using EETDotNetTraningBatch2.POS.Domain;
+using EETDotNetTraningBatch2.POS.Domain.Features;
 using EETDotNetTraningBatch2.POSConsoleApp;
 
 //Console.WriteLine("Welcome, Mini POS!");
