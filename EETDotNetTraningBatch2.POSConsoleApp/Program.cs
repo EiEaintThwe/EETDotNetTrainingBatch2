@@ -1,4 +1,5 @@
 ﻿
+using EETDotNetTraningBatch2.POS.Domain;
 using EETDotNetTraningBatch2.POSConsoleApp;
 
 //Console.WriteLine("Welcome, Mini POS!");
@@ -74,53 +75,56 @@ using EETDotNetTraningBatch2.POSConsoleApp;
 //saleService.Edit();
 //saleService.Create();
 
+StaffService staffService = new StaffService();
+staffService.Read();
+
 //Console.ReadLine();
 
 //Console.ReadKey();
 
 
-Result:
-Console.WriteLine("Menus");
-Console.WriteLine("-----------------------------------");
-Console.WriteLine("1. Product");
-Console.WriteLine("2. Sale");
-Console.WriteLine("3. Exit");
+//Result:
+//Console.WriteLine("Menus");
+//Console.WriteLine("-----------------------------------");
+//Console.WriteLine("1. Product");
+//Console.WriteLine("2. Sale");
+//Console.WriteLine("3. Exit");
 
-Console.WriteLine("-----------------------------------");
+//Console.WriteLine("-----------------------------------");
 
-Console.Write("Choose Menu : ");
-string result = Console.ReadLine()!;
-bool isInt = int.TryParse(result, out int no);
-if (!isInt)
-{
-    Console.WriteLine("Invalid Product Menu. Please choose 1 to 3");
-    goto Result;
-}
+//Console.Write("Choose Menu : ");
+//string result = Console.ReadLine()!;
+//bool isInt = int.TryParse(result, out int no);
+//if (!isInt)
+//{
+//    Console.WriteLine("Invalid Product Menu. Please choose 1 to 3");
+//    goto Result;
+//}
 
-EnumMenu menu = (EnumMenu)no;
-switch (menu)
-{
+//EnumMenu menu = (EnumMenu)no;
+//switch (menu)
+//{
 
-    case EnumMenu.Product:
-        ProductUI productUI = new ProductUI();
-        productUI.Execute();
-        goto Result;
-        break;
-    case EnumMenu.Sale:
-        SaleUI saleUI = new SaleUI();
-        saleUI.Execute();
-        goto Result;
-        break;
-    case EnumMenu.Exit:
-        goto End;
-    case EnumMenu.None:
-    default:
-        Console.WriteLine("Invalid Menu. Please choose 1 to 3");
-        goto Result;
-}
+//    case EnumMenu.Product:
+//        ProductUI productUI = new ProductUI();
+//        productUI.Execute();
+//        goto Result;
+//        break;
+//    case EnumMenu.Sale:
+//        SaleUI saleUI = new SaleUI();
+//        saleUI.Execute();
+//        goto Result;
+//        break;
+//    case EnumMenu.Exit:
+//        goto End;
+//    case EnumMenu.None:
+//    default:
+//        Console.WriteLine("Invalid Menu. Please choose 1 to 3");
+//        goto Result;
+//}
 
-End:
-Console.WriteLine("Exiting Mini POS....");
+//End:
+//Console.WriteLine("Exiting Mini POS....");
 
 
 
