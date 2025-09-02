@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="StaffService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\EETDotNetTraningBatch2.POSDatabase\EETDotNetTraningBatch2.POSDatabase.csproj" />
   </ItemGroup>
 
