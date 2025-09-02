@@ -1,4 +1,5 @@
-﻿using EETDotNetTraningBatch2.POSDatabase.App3DbContextModels;
+﻿using EETDotNetTraningBatch2.POS.Domain.Features;
+using EETDotNetTraningBatch2.POSDatabase.App3DbContextModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +8,14 @@ using System.Threading.Tasks;
 
 namespace EETDotNetTraningBatch2.POSConsoleApp
 {
-    public class ProductService
+    public class ProductUI
     {
         public void Read()
         {
-            App3DbContext db = new App3DbContext();
-            List<TblProduct> lst = db.TblProducts.Where(x => x.DeleteFlag == false).ToList();
+            //App3DbContext db = new App3DbContext();
+            //List<TblProduct> lst = db.TblProducts.Where(x => x.DeleteFlag == false).ToList();
+            ProductService productService = new ProductService();
+            var lst = productService.GetProducts();
             foreach (var item in lst)
             {
                 Console.WriteLine("Product ID => " + item.ProductId);
@@ -33,8 +36,11 @@ namespace EETDotNetTraningBatch2.POSConsoleApp
                 return;
             }
 
-            App3DbContext db = new App3DbContext();
-            var item = db.TblProducts.Where(x => x.DeleteFlag == false).FirstOrDefault(x => x.ProductId == id);
+            //App3DbContext db = new App3DbContext();
+            //var item = db.TblProducts.Where(x => x.DeleteFlag == false).FirstOrDefault(x => x.ProductId == id);
+            ProductService productService = new ProductService();
+            var item = productService.FindProduct(id);
+
             if (item is null)
             {
                 return;
@@ -57,29 +63,45 @@ namespace EETDotNetTraningBatch2.POSConsoleApp
             bool isDec = decimal.TryParse(productPrice, out decimal price);
             if (!isDec) { return; }
 
-            TblProduct product = new TblProduct()
-            {
-                ProductCode = productCode,
-                ProductName = productName,
-                Price = price
-            };
+            //TblProduct product = new TblProduct()
+            //{
+            //    ProductCode = productCode,
+            //    ProductName = productName,
+            //    Price = price
+            //};
 
-            App3DbContext db = new App3DbContext();
-            db.TblProducts.Add(product);
-            var result = db.SaveChanges();
+            //App3DbContext db = new App3DbContext();
+            //db.TblProducts.Add(product);
+            //var result = db.SaveChanges();
+
+            ProductService productService = new ProductService();
+            int result = productService.CreateProduct(productCode,productName,price);
             Console.WriteLine(result > 0 ? "Saving Successful!" : "Saving Failed!");
 
         }
 
         public void Update()
         {
+        ProductIDInput:
             Console.Write("Enter Product Id : ");
             string productId = Console.ReadLine()!;
             bool isInt = int.TryParse(productId, out int id);
             if (!isInt)
             {
-                return;
+                goto ProductIDInput;
             }
+
+            ProductService productService= new ProductService();
+            var item = productService.FindProduct(id);
+            if(item is null)
+            {
+                Console.WriteLine("No data found.");
+                goto ProductIDInput;
+            }
+
+            Console.WriteLine(item.ProductCode);
+            Console.WriteLine(item.ProductName);
+            Console.WriteLine(item.Price);
 
             Console.Write("Modify Product Code : ");
             string productCode = Console.ReadLine()!;
@@ -90,15 +112,22 @@ namespace EETDotNetTraningBatch2.POSConsoleApp
             bool isDec = decimal.TryParse(productPrice, out decimal price);
             if (!isDec) { return; }
 
-            bool isExit = IsExistProduct(id);
-            if (!isExit) { return; }
+            //bool isExit = IsExistProduct(id);
+            //if (!isExit) { return; }
 
-            App3DbContext db = new App3DbContext();
-            var item = db.TblProducts.Where(x => x.DeleteFlag == false).FirstOrDefault(x => x.ProductId == id);
-            item.ProductCode = productCode;
-            item.ProductName = productName;
-            item.Price = price;
-            var result = db.SaveChanges();
+            //App3DbContext db = new App3DbContext();
+            //var item = db.TblProducts.Where(x => x.DeleteFlag == false).FirstOrDefault(x => x.ProductId == id);
+            //item.ProductCode = productCode;
+            //item.ProductName = productName;
+            //item.Price = price;
+            //var result = db.SaveChanges();
+
+            int result = productService.UpdateProduct(id, productCode, productName, price);
+            if(result == -1)
+            {
+                Console.WriteLine("No data found.");
+                goto ProductIDInput;
+            }
             Console.WriteLine(result > 0 ? "Updating successful" : "Updating failed");
 
 
@@ -107,34 +136,46 @@ namespace EETDotNetTraningBatch2.POSConsoleApp
 
         public void Delete()
         {
+        ProductIDInput:
             Console.Write("Enter Product Id : ");
             string productId = Console.ReadLine()!;
             bool isInt = int.TryParse(productId, out int id);
             if (!isInt)
             {
-                return;
+                goto ProductIDInput;
             }
 
-            bool isExit = IsExistProduct(id);
-            if (!isExit) { return; }
+            ProductService productService = new ProductService();
+            var item = productService.FindProduct(id);
+            if (item is null)
+            {
+                Console.WriteLine("No data found.");
+                goto ProductIDInput;
+            }
 
-            App3DbContext db = new App3DbContext();
-            var item = db.TblProducts.Where(x => x.DeleteFlag == false).FirstOrDefault(x => x.ProductId == id);
-            item.DeleteFlag = true;
-            var result = db.SaveChanges();
+            //bool isExit = IsExistProduct(id);
+            //if (!isExit) { return; }
+
+            //App3DbContext db = new App3DbContext();
+            //var item = db.TblProducts.Where(x => x.DeleteFlag == false).FirstOrDefault(x => x.ProductId == id);
+            //item.DeleteFlag = true;
+            //var result = db.SaveChanges();
+            int result = productService.DeleteProduct(id);
+            if (result == -1)
+            {
+                Console.WriteLine("No data found.");
+                goto ProductIDInput;
+            }
             Console.WriteLine(result > 0 ? "Deleting successful" : "Deleting failed");
 
         }
 
-        private bool IsExistProduct(int id)
-        {
-            App3DbContext db = new App3DbContext();
-            var item = db.TblProducts.FirstOrDefault(x => x.ProductId == id);
-            return item != null;
-
-
-
-        }
+        //private bool IsExistProduct(int id)
+        //{
+        //    App3DbContext db = new App3DbContext();
+        //    var item = db.TblProducts.FirstOrDefault(x => x.ProductId == id);
+        //    return item != null;
+        //}
 
         public void Execute()
         {
@@ -219,8 +260,9 @@ namespace EETDotNetTraningBatch2.POSConsoleApp
         None,
         Product,
         Sale,
-        SaleDetail,
         Exit
     }
+
+
 
 }
