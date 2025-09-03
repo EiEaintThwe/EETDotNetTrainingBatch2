@@ -82,14 +82,14 @@ namespace EETDotNetTraningBatch2.WinFormsApp1
 
         private void dgvData_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex == -1 || e.ColumnIndex == -1 ) return;
+            if (e.RowIndex == -1 || e.ColumnIndex == -1) return;
 
-           // if(e.ColumnIndex == 0)
-           if(e.ColumnIndex == dgvData.Columns["ColEdit"].Index)
+            // if(e.ColumnIndex == 0)
+            if (e.ColumnIndex == dgvData.Columns["ColEdit"].Index)
             {
-                int id =Convert.ToInt32(dgvData.Rows[e.RowIndex].Cells["ColId"].Value.ToString()!);
-                var item =_db.TblStaffs.FirstOrDefault(x => x.StaffId == id);
-                if(item is null)
+                int id = Convert.ToInt32(dgvData.Rows[e.RowIndex].Cells["ColId"].Value.ToString()!);
+                var item = _db.TblStaffs.FirstOrDefault(x => x.StaffId == id);
+                if (item is null)
                 {
                     return;
                 }
@@ -102,9 +102,9 @@ namespace EETDotNetTraningBatch2.WinFormsApp1
                 cboPosition.Text = item.Position;
                 _editId = id;
             }
-            else if(e.ColumnIndex == dgvData.Columns["ColDelete"].Index)
-                    {
-                var confirm =MessageBox.Show("Are you sure want to delete?","",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+            else if (e.ColumnIndex == dgvData.Columns["ColDelete"].Index)
+            {
+                var confirm = MessageBox.Show("Are you sure want to delete?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (confirm == DialogResult.No) return;
 
                 //delete process
@@ -116,12 +116,16 @@ namespace EETDotNetTraningBatch2.WinFormsApp1
                 }
 
                 _db.TblStaffs.Remove(item);
-                
+
                 int result = _db.SaveChanges();
-                string message = result > 0 ? "Saving successful" : "Saving failed";
+                string message = result > 0 ? "Deleting successful" : "Deleting failed";
                 MessageBox.Show(message, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                BindData();
+            
             }
+
+           
+
         }
+        
     }
 }
