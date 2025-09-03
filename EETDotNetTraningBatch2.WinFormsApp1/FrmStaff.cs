@@ -27,6 +27,7 @@ namespace EETDotNetTraningBatch2.WinFormsApp1
         {
             try
             {
+                txtPassword.Text = Guid.NewGuid().ToString().Replace("-", "").Substring(0,8);
                 _db.TblStaffs.Add(new TblStaff
                 {
                     EmailAddress = txtEmail.Text.Trim(),
@@ -120,7 +121,7 @@ namespace EETDotNetTraningBatch2.WinFormsApp1
                 int result = _db.SaveChanges();
                 string message = result > 0 ? "Deleting successful" : "Deleting failed";
                 MessageBox.Show(message, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            
+                BindData();
             }
 
            
